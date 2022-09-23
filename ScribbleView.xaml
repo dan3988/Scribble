@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Layout
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:sk="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+	xmlns:l="clr-namespace:Scribble"
+	x:Class="Scribble.ScribbleView"
+	x:DataType="l:ScribbleModel">
+	<Layout.Children>
+		<sk:SKCanvasView
+			x:Name="mCanvas"
+			x:FieldModifier="private"
+			EnableTouchEvents="True"
+			PaintSurface="OnPaint"
+			Touch="OnTouch"/>
+	</Layout.Children>
+</Layout>
