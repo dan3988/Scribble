@@ -1,4 +1,6 @@
-﻿using SkiaSharp.Views.Maui.Controls.Hosting;
+﻿using Scribble.Media;
+
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace Scribble;
 
@@ -10,6 +12,10 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseSkiaSharp()
+			.ConfigureImageSources(v =>
+			{
+				v.AddService(svc => new FilteredImageSourceService(svc.GetRequiredService<IImageSourceServiceProvider>()));
+			})
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
