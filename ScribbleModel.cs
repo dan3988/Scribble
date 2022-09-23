@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using Microsoft.Maui.Controls;
+﻿using System.Windows.Input;
 
 using Scribble.Helpers;
 using Scribble.Tools;
@@ -68,7 +65,7 @@ public sealed class ScribbleModel : AbstractViewModel
 		set => this.SetPropertyValue(ref mSize, value);
 	}
 
-	private ScribbleTool mTool = ScribbleTool.Line;
+	private ScribbleTool mTool = ScribbleTool.Pen;
 	public ScribbleTool Tool
 	{
 		get => mTool;

@@ -25,45 +25,45 @@ public sealed class LineTool : ScribbleTool
 	public override IScribbleAction Begin(SKPoint point, SKColor color, int size)
 	{
 		var paint = CreateStrokePaint(color, size);
-		return new LineAction(paint, point);
+		return new Action(paint, point);
 	}
 
-	private class LineElement : IScribbleElement
+	private class Element : IScribbleElement
 	{
-		internal readonly SKPaint paint;
-		internal SKPoint start, end;
+		internal readonly SKPaint mPaint;
+		internal SKPoint mStart, mEnd;
 
-		public LineElement(SKPaint paint, SKPoint start, SKPoint end)
+		public Element(SKPaint paint, SKPoint start, SKPoint end)
 		{
-			this.paint = paint;
-			this.start = start;
-			this.end = end;
+			mPaint = paint;
+			mStart = start;
+			mEnd = end;
 		}
 
 		void IDisposable.Dispose()
 		{
-			paint.Dispose();
+			mPaint.Dispose();
 		}
 
 		void IScribbleElement.Draw(SKCanvas canvas, SKImageInfo canvasInfo)
-			=> canvas.DrawLine(start, end, paint);
+			=> canvas.DrawLine(mStart, mEnd, mPaint);
 	}
 
-	private sealed class LineAction : LineElement, IScribbleAction
+	private sealed class Action : Element, IScribbleAction
 	{
-		public LineAction(SKPaint paint, SKPoint start) : base(paint, start, start)
+		public Action(SKPaint paint, SKPoint start) : base(paint, start, start)
 		{
 		}
 
 		public IScribbleElement Complete(SKPoint point)
-			=> new LineElement(paint, start, point);
+			=> new Element(mPaint.Clone(), mStart, point);
 
 		public bool OnDrag(SKPoint point)
 		{
-			if (end == point)
+			if (mEnd == point)
 				return false;
 
-			end = point;
+			mEnd = point;
 			return true;
 		}
 	}
