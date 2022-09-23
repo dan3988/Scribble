@@ -5,7 +5,12 @@
 	xmlns:l="clr-namespace:Scribble"
 	x:Class="Scribble.ScribblePage"
 	Title="ScribblePage">
+	<ContentPage.BindingContext>
+		<l:ScribbleModel/>
+	</ContentPage.BindingContext>
 	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}"/>
+		<ToolbarItem Text="Redo" Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}"/>
 		<ToolbarItem Text="Open" Clicked="OpenFile"/>
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>

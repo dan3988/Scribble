@@ -37,8 +37,6 @@ public partial class ScribbleView
 	{
 		mActions = new();
 		mBackground = bitmap;
-		mModel = new();
-		BindingContext = mModel;
 		InitializeComponent();
 	}
 
