@@ -101,23 +101,18 @@ public partial class ScribbleView
 		var canvas = e.Surface.Canvas;
 		var info = e.Info;
 		var (cx, cy, cw, ch) = mCanvas.Bounds;
-		canvas.Scale(mDpi);
-		canvas.Translate((float)(cx), (float)(cy));
-		canvas.ClipRect(new SKRect(0, 0, (float)(cw), (float)(ch)));
-		canvas.Scale(mCanvasScale);
-		canvas.Clear(SKColors.White);
+		canvas.Translate((float)(cx * mDpi), (float)(cy * mDpi));
+		canvas.Scale(mCanvasScale * mDpi);
+		canvas.Clear(SKColors.Transparent);
 		canvas.DrawBitmap(mBackground, SKPoint.Empty);
-
-		foreach (var element in mModel.Elements)
-			element.Draw(canvas, info);
 
 		foreach (var action in mActions.Values)
 			action.Draw(canvas, info);
-	}
 
-	private static float FixPoint(float pos, double offset, float dpi, float scale)
-	{
-		return (float)(pos - (offset * dpi));
+		canvas.ClipRect(new SKRect(0, 0, (float)(cw / mCanvasScale), (float)(ch / mCanvasScale)));
+
+		foreach (var element in mModel.Elements)
+			element.Draw(canvas, info);
 	}
 
 	private void OnTouch(object sender, SKTouchEventArgs e)
@@ -127,8 +122,8 @@ public partial class ScribbleView
 
 		var point = e.Location;
 		var scale = mCanvasScale * mDpi;
-		point.X = FixPoint(point.X, mCanvas.X, mDpi, mCanvasScale);
-		point.Y = FixPoint(point.Y, mCanvas.Y, mDpi, mCanvasScale);
+		point.X = (float)(point.X - (mCanvas.X * mDpi)) / scale;
+		point.Y = (float)(point.Y - (mCanvas.Y * mDpi)) / scale;
 
 		switch (e.ActionType)
 		{
