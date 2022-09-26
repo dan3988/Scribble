@@ -5,27 +5,28 @@
 	xmlns:l="clr-namespace:Scribble"
 	xmlns:m="clr-namespace:Scribble.Media"
 	xmlns:mx="clr-namespace:Scribble.MarkupExtensions"
+	xmlns:h="clr-namespace:Scribble.Helpers"
 	x:Class="Scribble.ScribblePage"
 	Title="ScribblePage">
 	<ContentPage.BindingContext>
 		<l:ScribbleModel/>
 	</ContentPage.BindingContext>
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">
+		<h:FixedToolbarItem Text="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">
 			<ToolbarItem.IconImageSource>
-				<m:FilteredImageSource Source="undo.svg" Color="White"/>
+				<m:FilteredImageSource Source="undo.svg" Color="{mx:IfElseBinding CanUndo, TrueValue=White, FalseValue=DarkGray}"/>
 			</ToolbarItem.IconImageSource>
-		</ToolbarItem>
-		<ToolbarItem Text="Redo" Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">
+		</h:FixedToolbarItem>
+		<h:FixedToolbarItem Text="Redo" Command="{Binding RedoCommand}" IsEnabled="{Binding CanRedo}">
 			<ToolbarItem.IconImageSource>
-				<m:FilteredImageSource Source="redo.svg" Color="White"/>
+				<m:FilteredImageSource Source="redo.svg" Color="{mx:IfElseBinding CanRedo, TrueValue=White, FalseValue=DarkGray}"/>
 			</ToolbarItem.IconImageSource>
-		</ToolbarItem>
-		<ToolbarItem Text="Open" Clicked="OpenFile">
+		</h:FixedToolbarItem>
+		<h:FixedToolbarItem Text="Open" Clicked="OpenFile">
 			<ToolbarItem.IconImageSource>
 				<m:FilteredImageSource Source="open.svg" Color="White"/>
 			</ToolbarItem.IconImageSource>
-		</ToolbarItem>
+		</h:FixedToolbarItem>
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
 		<l:ScribbleView/>

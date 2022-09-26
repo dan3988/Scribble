@@ -76,14 +76,14 @@ public sealed class ScribbleModel : AbstractViewModel
 	public bool CanUndo
 	{
 		get => mCanUndo;
-		set => this.SetPropertyValueBln(ref mCanUndo, value);
+		private set => this.SetPropertyValueBln(ref mCanUndo, value);
 	}
 
 	private bool mCanRedo;
 	public bool CanRedo
 	{
 		get => mCanRedo;
-		set => this.SetPropertyValueBln(ref mCanRedo, value);
+		private set => this.SetPropertyValueBln(ref mCanRedo, value);
 	}
 
 	private readonly List<IScribbleElement> mElements;
