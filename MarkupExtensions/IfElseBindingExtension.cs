@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-using Microsoft.Maui.Controls.Xaml;
-
 using Scribble.Helpers;
 
 namespace Scribble.MarkupExtensions;
