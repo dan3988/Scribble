@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Scribble.Helpers;
 
@@ -34,7 +35,7 @@ public static class ViewModelExtensions
 	}
 
 	public static void SetPropertyValue<T>(this IViewModel self, ref T field, T value, [CallerMemberName] string propertyName = null!)
-		where T : IEqualityOperators<T, T>
+		where T : IEqualityOperators<T, T, bool>
 	{
 		if (field != value)
 		{
