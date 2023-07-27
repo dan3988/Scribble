@@ -2,6 +2,7 @@
 
 using Scribble.Helpers;
 using Scribble.Tools;
+using Scribble.ViewModels;
 
 using SkiaSharp;
 
@@ -51,6 +52,8 @@ public sealed class ScribbleModel : AbstractViewModel
 		}
 	}
 
+	public SKSizeI ImageSize { get; }
+
 	private SKColor mColor = SKColors.Black;
 	public SKColor Color
 	{
@@ -91,19 +94,29 @@ public sealed class ScribbleModel : AbstractViewModel
 
 	public IReadOnlyList<IScribbleElement> Elements { get; }
 
+	public SKBitmap Image { get; }
+
+	public MainViewModel Parent { get; }
+
 	public ICommand UndoCommand { get; }
 
 	public ICommand RedoCommand { get; }
 
 	public event EventHandler Invalidated;
 
-	public ScribbleModel()
+	public ScribbleModel(MainViewModel parent, SKBitmap image)
 	{
 		mElements = new();
+		Parent = parent;
+		Image = image;
+		ImageSize = new(image.Width, image.Height);
 		Elements = new ElementList(this);
 		UndoCommand = new Command(() => Undo());
 		RedoCommand = new Command(() => Redo());
 	}
+
+	public void DrawImage(SKCanvas canvas, SKPoint point)
+		=> canvas.DrawBitmap(Image, point);
 
 	public IScribbleAction BeginAction(SKPoint point)
 		=> mTool.Begin(point, mColor, mSize);

@@ -1,4 +1,6 @@
-﻿namespace Scribble;
+﻿using Scribble.ViewModels;
+
+namespace Scribble;
 
 public partial class App : Application
 {
@@ -6,6 +8,9 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new MainPage();
+		MainPage = new MainPage
+		{
+			BindingContext = new MainViewModel()
+		};
 	}
 }

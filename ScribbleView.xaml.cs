@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-using Scribble.Helpers;
+﻿using Scribble.Helpers;
 using Scribble.Tools;
 
 using SkiaSharp;
@@ -10,57 +8,33 @@ namespace Scribble;
 
 public partial class ScribbleView
 {
-	private static SKBitmap EmptyBitmap(SKColor color, SKSizeI size)
-	{
-		var bitmap = new SKBitmap(size.Width, size.Height);
-
-		using var canvas = new SKCanvas(bitmap);
-		using var paint = new SKPaint()
-		{
-			Color = color
-		};
-
-		canvas.DrawRect(0, 0, size.Width, size.Height, paint);
-
-		return bitmap;
-	}
-
-	private static readonly SKSizeI DefaultSize = new SKSizeI(900, 900);
-
 	private readonly Dictionary<long, IScribbleAction> mActions;
-	private readonly SKBitmap mBackground;
 	private ScribbleModel mModel;
 	private float mCanvasScale;
 	private float mDpi;
 
-	public ScribbleView(SKBitmap bitmap)
+	public ScribbleView()
 	{
 		mActions = new();
-		mBackground = bitmap;
 		InitializeComponent();
-	}
-
-	public ScribbleView(SKColor color, SKSizeI size) : this(EmptyBitmap(color, size))
-	{
-	}
-
-	public ScribbleView() : this(SKColors.White, DefaultSize)
-	{
 	}
 
 	protected override Size ArrangeOverride(Rect bounds)
 	{
 		base.ArrangeOverride(bounds);
 
+		if (mModel == null)
+			return default;
+
 		var padding = Padding;
 		var area = bounds.Inflate(padding);
-		var info = mBackground.Info;
-		var scaleX = area.Width / info.Width;
-		var scaleY = area.Height / info.Height;
+		var size = mModel.ImageSize;
+		var scaleX = area.Width / size.Width;
+		var scaleY = area.Height / size.Height;
 		var scale = Math.Min(scaleX, scaleY);
 
-		var w = info.Width * scale;
-		var h = info.Height * scale;
+		var w = size.Width * scale;
+		var h = size.Height * scale;
 
 		area = new(area.X + ((area.Width - w) / 2), area.Y + ((area.Height - h) / 2), w, h);
 
@@ -83,6 +57,7 @@ public partial class ScribbleView
 		if (mModel != null)
 			mModel.Invalidated += OnModelInvalidated;
 
+		InvalidateMeasure();
 	}
 
 	private void OnModelInvalidated(object sender, EventArgs e)
@@ -104,7 +79,7 @@ public partial class ScribbleView
 		canvas.Translate((float)(cx * mDpi), (float)(cy * mDpi));
 		canvas.Scale(mCanvasScale * mDpi);
 		canvas.Clear(SKColors.Transparent);
-		canvas.DrawBitmap(mBackground, SKPoint.Empty);
+		mModel.DrawImage(canvas, SKPoint.Empty);
 
 		foreach (var action in mActions.Values)
 			action.Draw(canvas, info);

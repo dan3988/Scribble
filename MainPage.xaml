@@ -4,6 +4,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:s="clr-namespace:SkiaSharp;assembly=SkiaSharp"
 	xmlns:l="clr-namespace:Scribble"
+	xmlns:vm="clr-namespace:Scribble.ViewModels"
+	x:DataType="vm:MainViewModel"
 	x:Class="Scribble.MainPage">
 	<FlyoutPage.Flyout>
 		<ContentPage Title="Flyout">
@@ -13,7 +15,7 @@
 	<FlyoutPage.Detail>
 		<NavigationPage>
 			<x:Arguments>
-				<l:ScribblePage BackgroundColor="Gray"/>
+				<l:ScribblePage BindingContext="{Binding CurrentEdit}" BackgroundColor="Gray"/>
 			</x:Arguments>
 		</NavigationPage>
 	</FlyoutPage.Detail>

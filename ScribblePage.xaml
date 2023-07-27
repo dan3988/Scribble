@@ -7,10 +7,8 @@
 	xmlns:mx="clr-namespace:Scribble.MarkupExtensions"
 	xmlns:h="clr-namespace:Scribble.Helpers"
 	x:Class="Scribble.ScribblePage"
+	x:DataType="l:ScribbleModel"
 	Title="ScribblePage">
-	<ContentPage.BindingContext>
-		<l:ScribbleModel/>
-	</ContentPage.BindingContext>
 	<ContentPage.ToolbarItems>
 		<h:FixedToolbarItem Text="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">
 			<ToolbarItem.IconImageSource>
@@ -22,7 +20,7 @@
 				<m:FilteredImageSource Source="redo.svg" Color="{mx:IfElseBinding CanRedo, TrueValue=White, FalseValue=DarkGray}"/>
 			</ToolbarItem.IconImageSource>
 		</h:FixedToolbarItem>
-		<h:FixedToolbarItem Text="Open" Clicked="OpenFile">
+		<h:FixedToolbarItem Text="Open" Command="{Binding Parent.OpenCommand}">
 			<ToolbarItem.IconImageSource>
 				<m:FilteredImageSource Source="open.svg" Color="White"/>
 			</ToolbarItem.IconImageSource>
