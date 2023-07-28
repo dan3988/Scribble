@@ -1,4 +1,6 @@
-﻿using Scribble.Media;
+﻿using CommunityToolkit.Maui;
+
+using Scribble.Media;
 
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
@@ -12,6 +14,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseSkiaSharp()
+			.UseMauiCommunityToolkit()
 			.ConfigureImageSources(v =>
 			{
 				v.AddService(svc => new FilteredImageSourceService(svc.GetRequiredService<IImageSourceServiceProvider>()));
