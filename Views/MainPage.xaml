@@ -10,7 +10,7 @@
 	<FlyoutPage.Resources>
 		<ControlTemplate x:Key="FlyoutRowTemplate">
 			<Grid ColumnDefinitions="32,*" Margin="5,0" ColumnSpacing="5">
-				<Image Grid.Column="0" Source="{TemplateBinding Icon}"/>
+				<Image Grid.Column="0" Margin="2" Source="{TemplateBinding Icon}"/>
 				<Label
 					Grid.Column="1"
 					Text="{TemplateBinding Text}"
