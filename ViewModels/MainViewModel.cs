@@ -62,9 +62,6 @@ public sealed class MainViewModel : AbstractViewModel
 			var result = await FileSaver.Default.SaveAsync("image.png", stream, CancellationToken.None);
 			path = result.FilePath;
 		}
-		catch (TaskCanceledException)
-		{
-		}
 		finally
 		{
 			File.Delete(temp);
