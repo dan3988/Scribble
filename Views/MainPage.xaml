@@ -30,6 +30,7 @@
 		<ContentPage Title="Flyout" BackgroundColor="{StaticResource Secondary}">
 			<VerticalStackLayout Padding="5" Spacing="5">
 				<v:FlyoutRow Command="{Binding OpenCommand}" Icon="open.svg" Text="Open" />
+				<v:FlyoutRow Command="{Binding SaveCommand}" Icon="save.svg" Text="Save" />
 			</VerticalStackLayout>
 		</ContentPage>
 	</FlyoutPage.Flyout>

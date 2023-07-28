@@ -1,5 +1,8 @@
 ﻿using System.Windows.Input;
 
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Storage;
+
 using Scribble.Helpers;
 using SkiaSharp;
 
@@ -26,18 +29,63 @@ public sealed class MainViewModel : AbstractViewModel
 
 	public ICommand OpenCommand { get; }
 
-	private ScribbleModel _currentEdit;
+	public ICommand SaveCommand { get; }
+
+	private ScribbleModel mCurrentEdit;
 	public ScribbleModel CurrentEdit
 	{
-		get => _currentEdit;
-		private set => this.SetPropertyValueRef(ref _currentEdit, value);
+		get => mCurrentEdit;
+		private set => this.SetPropertyValueRef(ref mCurrentEdit, value);
 	}
 
 	public MainViewModel()
 	{
 		var image = EmptyBitmap(SKColors.White, DefaultSize);
-		_currentEdit = new(this, image);
+		mCurrentEdit = new(this, image);
 		OpenCommand = new Command(OpenFile);
+		SaveCommand = new Command(Save);
+	}
+
+	private async void Save()
+	{
+		var temp = Path.GetTempFileName();
+		var path = default(string);
+
+		try
+		{
+			using var stream = File.Open(temp, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
+
+			mCurrentEdit.Save(stream);
+
+			stream.Position = 0;
+
+			var result = await FileSaver.Default.SaveAsync("image.png", stream, CancellationToken.None);
+			path = result.FilePath;
+		}
+		catch (TaskCanceledException)
+		{
+		}
+		finally
+		{
+			File.Delete(temp);
+		}
+
+		if (path != null)
+		{
+			var file = new ReadOnlyFile(path, "image/png");
+
+			async void Show()
+			{
+				if (!await Launcher.OpenAsync(new OpenFileRequest("Image", file)))
+				{
+					using var toast = Toast.Make("Failed to open " + path);
+					await toast.Show();
+				}
+			}
+
+			using var snack = Snackbar.Make("Image saved successfully", Show, "Open");
+			await snack.Show();
+		}
 	}
 
 	private async void OpenFile()
