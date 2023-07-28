@@ -7,9 +7,30 @@
 	xmlns:vm="clr-namespace:Scribble.ViewModels"
 	x:DataType="vm:MainViewModel"
 	x:Class="Scribble.MainPage">
+	<FlyoutPage.Resources>
+		<ControlTemplate x:Key="FlyoutRowTemplate">
+			<Grid ColumnDefinitions="32,*" Margin="5,0" ColumnSpacing="5">
+				<Image Grid.Column="0" Source="{TemplateBinding Icon}"/>
+				<Label
+					Grid.Column="1"
+					Text="{TemplateBinding Text}"
+					TextColor="{StaticResource Black}"
+					FontSize="Large"
+					VerticalTextAlignment="Center"/>
+				<Grid.GestureRecognizers>
+					<TapGestureRecognizer Command="{TemplateBinding Command}"/>
+				</Grid.GestureRecognizers>
+			</Grid>
+		</ControlTemplate>
+		<Style TargetType="l:FlyoutRow">
+			<Setter Property="ControlTemplate" Value="{StaticResource FlyoutRowTemplate}" />
+		</Style>
+	</FlyoutPage.Resources>
 	<FlyoutPage.Flyout>
-		<ContentPage Title="Flyout">
-			<Label Text="Test"/>
+		<ContentPage Title="Flyout" BackgroundColor="{StaticResource Secondary}">
+			<VerticalStackLayout Padding="5" Spacing="5">
+				<l:FlyoutRow Command="{Binding OpenCommand}" Icon="open.svg" Text="Open" />
+			</VerticalStackLayout>
 		</ContentPage>
 	</FlyoutPage.Flyout>
 	<FlyoutPage.Detail>

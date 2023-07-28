@@ -21,11 +21,6 @@
 				<m:FilteredImageSource Source="redo.svg" Color="{mx:IfElseBinding CanRedo, TrueValue=White, FalseValue=DarkGray}"/>
 			</ToolbarItem.IconImageSource>
 		</h:FixedToolbarItem>
-		<h:FixedToolbarItem Text="Open" Command="{Binding Parent.OpenCommand}">
-			<ToolbarItem.IconImageSource>
-				<m:FilteredImageSource Source="open.svg" Color="White"/>
-			</ToolbarItem.IconImageSource>
-		</h:FixedToolbarItem>
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
 		<l:ScribbleView/>

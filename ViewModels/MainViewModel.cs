@@ -22,7 +22,7 @@ public sealed class MainViewModel : AbstractViewModel
 		return bitmap;
 	}
 
-	private static readonly SKSizeI DefaultSize = new SKSizeI(900, 900);
+	private static readonly SKSizeI DefaultSize = new(900, 900);
 
 	public ICommand OpenCommand { get; }
 
