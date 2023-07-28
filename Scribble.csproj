@@ -59,10 +59,4 @@
       <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
     </Compile>
   </ItemGroup>
-
-  <ItemGroup>
-    <MauiXaml Update="ScribblePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-  </ItemGroup>
 </Project>

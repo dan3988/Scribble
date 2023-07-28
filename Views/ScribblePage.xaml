@@ -2,12 +2,12 @@
 <ContentPage
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:l="clr-namespace:Scribble"
 	xmlns:m="clr-namespace:Scribble.Media"
 	xmlns:mx="clr-namespace:Scribble.MarkupExtensions"
 	xmlns:vm="clr-namespace:Scribble.ViewModels"
+	xmlns:v="clr-namespace:Scribble.Views"
 	xmlns:h="clr-namespace:Scribble.Helpers"
-	x:Class="Scribble.ScribblePage"
+	x:Class="Scribble.Views.ScribblePage"
 	x:DataType="vm:ScribbleModel"
 	Title="ScribblePage">
 	<ContentPage.ToolbarItems>
@@ -23,6 +23,6 @@
 		</h:FixedToolbarItem>
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
-		<l:ScribbleView/>
+		<v:ScribbleView/>
 	</ContentPage.Content>
 </ContentPage>

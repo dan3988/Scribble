@@ -1,10 +1,11 @@
 ﻿using Scribble.Helpers;
 using Scribble.Tools;
 using Scribble.ViewModels;
+
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
-namespace Scribble;
+namespace Scribble.Views;
 
 public partial class ScribbleView
 {

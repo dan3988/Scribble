@@ -1,4 +1,4 @@
-namespace Scribble;
+namespace Scribble.Views;
 
 public partial class ScribblePage : ContentPage
 {

@@ -1,6 +1,6 @@
 using System.Windows.Input;
 
-namespace Scribble;
+namespace Scribble.Views;
 
 public class FlyoutRow : ContentView
 {
