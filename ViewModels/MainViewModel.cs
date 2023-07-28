@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 
 using Scribble.Helpers;
-
 using SkiaSharp;
 
 namespace Scribble.ViewModels;

@@ -5,9 +5,10 @@
 	xmlns:l="clr-namespace:Scribble"
 	xmlns:m="clr-namespace:Scribble.Media"
 	xmlns:mx="clr-namespace:Scribble.MarkupExtensions"
+	xmlns:vm="clr-namespace:Scribble.ViewModels"
 	xmlns:h="clr-namespace:Scribble.Helpers"
 	x:Class="Scribble.ScribblePage"
-	x:DataType="l:ScribbleModel"
+	x:DataType="vm:ScribbleModel"
 	Title="ScribblePage">
 	<ContentPage.ToolbarItems>
 		<h:FixedToolbarItem Text="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}">
