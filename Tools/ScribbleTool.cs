@@ -4,9 +4,6 @@ namespace Scribble.Tools;
 
 public abstract class ScribbleTool
 {
-	public static readonly ScribbleTool Line = LineTool.Instance;
-	public static readonly ScribbleTool Pen = PenTool.Instance;
-
 	protected static SKPaint CreateStrokePaint(SKColor color, int size) => new()
 	{
 		Color = color,
@@ -21,10 +18,17 @@ public abstract class ScribbleTool
 
 	public string Name { get; }
 
-	protected ScribbleTool(string id, string name)
+	public ImageSource Icon { get; }
+
+	protected ScribbleTool(string id, string name) : this(id, name, $"tool_{id}.svg")
+	{
+	}
+
+	protected ScribbleTool(string id, string name, ImageSource icon)
 	{
 		Id = id;
 		Name = name;
+		Icon = icon;
 	}
 
 	public abstract IScribbleAction Begin(SKPoint point, SKColor color, int size);

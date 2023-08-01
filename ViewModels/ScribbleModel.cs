@@ -52,27 +52,6 @@ public sealed class ScribbleModel : AbstractViewModel
 
 	public SKSizeI ImageSize { get; }
 
-	private SKColor mColor = SKColors.Black;
-	public SKColor Color
-	{
-		get => mColor;
-		set => this.SetPropertyValue(ref mColor, value);
-	}
-
-	private int mSize = 12;
-	public int Size
-	{
-		get => mSize;
-		set => this.SetPropertyValue(ref mSize, value);
-	}
-
-	private ScribbleTool mTool = ScribbleTool.Pen;
-	public ScribbleTool Tool
-	{
-		get => mTool;
-		set => this.SetPropertyValueRef(ref mTool, value);
-	}
-
 	private bool mCanUndo;
 	public bool CanUndo
 	{
@@ -117,7 +96,7 @@ public sealed class ScribbleModel : AbstractViewModel
 		=> canvas.DrawBitmap(Image, point);
 
 	public IScribbleAction BeginAction(SKPoint point)
-		=> mTool.Begin(point, mColor, mSize);
+		=> Parent.BeginAction(point);
 
 	public void AddElement(IScribbleElement element)
 	{

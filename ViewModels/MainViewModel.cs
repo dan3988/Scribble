@@ -4,6 +4,8 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Storage;
 
 using Scribble.Helpers;
+using Scribble.Tools;
+
 using SkiaSharp;
 
 namespace Scribble.ViewModels;
@@ -38,6 +40,27 @@ public sealed class MainViewModel : AbstractViewModel
 		private set => this.SetPropertyValueRef(ref mCurrentEdit, value);
 	}
 
+	private SKColor mColor = SKColors.Black;
+	public SKColor Color
+	{
+		get => mColor;
+		set => this.SetPropertyValue(ref mColor, value);
+	}
+
+	private int mSize = 12;
+	public int Size
+	{
+		get => mSize;
+		set => this.SetPropertyValue(ref mSize, value);
+	}
+
+	private ScribbleTool mTool = ScribbleTools.Pen;
+	public ScribbleTool Tool
+	{
+		get => mTool;
+		set => this.SetPropertyValueRef(ref mTool, value);
+	}
+
 	public MainViewModel()
 	{
 		var image = EmptyBitmap(SKColors.White, DefaultSize);
@@ -45,6 +68,9 @@ public sealed class MainViewModel : AbstractViewModel
 		OpenCommand = new Command(OpenFile);
 		SaveCommand = new Command(Save);
 	}
+
+	public IScribbleAction BeginAction(SKPoint point)
+		=> mTool.Begin(point, mColor, mSize);
 
 	private async void Save()
 	{
