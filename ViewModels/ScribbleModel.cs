@@ -56,7 +56,7 @@ public sealed class ScribbleModel : AbstractViewModel
 	public SKColor Color
 	{
 		get => mColor;
-		set => this.SetPropertyValueEqu(ref mColor, value);
+		set => this.SetPropertyValue(ref mColor, value);
 	}
 
 	private int mSize = 12;
@@ -77,14 +77,14 @@ public sealed class ScribbleModel : AbstractViewModel
 	public bool CanUndo
 	{
 		get => mCanUndo;
-		private set => this.SetPropertyValueBln(ref mCanUndo, value);
+		private set => this.SetPropertyValue(ref mCanUndo, value);
 	}
 
 	private bool mCanRedo;
 	public bool CanRedo
 	{
 		get => mCanRedo;
-		private set => this.SetPropertyValueBln(ref mCanRedo, value);
+		private set => this.SetPropertyValue(ref mCanRedo, value);
 	}
 
 	private readonly List<IScribbleElement> mElements;
