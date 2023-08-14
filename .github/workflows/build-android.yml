@@ -1,0 +1,23 @@
+name: Build
+on:
+  - push
+  - pull_request
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build App
+      run: dotnet publish Scribble.csproj -c Release -f net7.0-android -o .build
+    - name: Upload App
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: build
+        path: .build/*.aab
+        retention-days: 1
