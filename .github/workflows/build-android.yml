@@ -19,5 +19,5 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: build
-        path: .build/*.aab
+        path: .build/*.apk
         retention-days: 1
