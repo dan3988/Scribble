@@ -24,6 +24,9 @@
     <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net7.0-android'">
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
     <Compile Remove="**\**\*.Android.cs" />
@@ -62,14 +65,5 @@
     <PackageReference Include="SkiaSharp" Version="2.88.2" />
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.2" />
     <PackageReference Include="System.Runtime.Experimental" Version="6.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Platforms\iOS\Media\FilteredImageSourceService.cs">
-      <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-    </Compile>
-    <Compile Update="Platforms\iOS\Media\WrapperImageSourceService.cs">
-      <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-    </Compile>
   </ItemGroup>
 </Project>
